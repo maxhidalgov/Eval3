@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConIngenio.cl | Soluciones Tecnológicas con Ingeniería</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+    <style>
+        .carousel-item img {
+        max-height: 400px; /* Ajusta el valor a tu preferencia */
+        object-fit: cover; /* Opcional: esta propiedad recorta la imagen si excede el contenedor */
+        width: 100%;       /* Para que la imagen se ajuste al ancho del slide */
+        }
+        .bg-image {
+            background-image: url('assets/img/mar.jpeg');
+            /* Cambia esto por la ruta de tu imagen */
+            background-repeat: no-repeat;
+            /* Evita que la imagen se repita
+                   } */
+
+            .card {
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s, box-shadow 0.3s;
+                height: 100%;
+                /* Asegura que todas las tarjetas llenen el contenedor */
+            }
+        }
+
+                header {
+            display: flex;
+            justify-content: center; /* Centra los elementos dentro del header */
+            align-items: center;     /* Centra los elementos verticalmente */
+            width: 100%;
+        }
+
+        #lista-menu-principal {
+            display: flex;
+            justify-content: center; /* Centra los elementos del menú */
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-item {
+            margin: 0 10px; /* Ajusta el espacio entre los elementos del menú */
+        }
+        .card-header {
+            padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);
+            margin-bottom: 0;
+            color: var(--bs-card-cap-color);
+            background-color: rgb(143 184 224);
+            border-bottom: var(--bs-card-border-width) solid var(--bs-card-border-color);
+        }
+
+        .card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2), 0 0 20px rgba(0, 123, 255, 0.6);
+        }
+
+
+        .soloLogo {
+            width: 240px;
+            /* clip-path: inset(0px 137px 0px 0px); */
+        }
+
+        .nav-pills {
+            --bs-nav-pills-link-active-bg: #113a5d;
+        }
+
+        .nav {
+
+            --bs-nav-link-color: # 113a5d;
+            --bs-nav-link-hover-color: #8fb8e0;
+        }
+
+        .btn-primary {
+            --bs-btn-bg: #113a5d;
+            --bs-btn-border-color: #113a5d;
+            --bs-btn-hover-bg: #8fb8e0;
+            --bs-btn-hover-border-color: #8fb8e0;
+            --bs-btn-focus-shadow-rgb: 49, 132, 253;
+            --bs-btn-active-bg: black;
+            --bs-btn-active-border-color: black;
+        }
+
+        header {
+            background-color: #fafafa;
+        }
+
+        .py-5 {
+            padding-top: 3rem !important;
+            padding-bottom: 8rem !important;
+        }
+        /* Estilo del botón flotante de WhatsApp */
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366; /* Color de WhatsApp */
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+
+        .whatsapp-button img {
+            width: 50px;
+            height: 50px;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="/"
+                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <img src="assets/img/Logo.png" style="width: 150px;">
+            </a>
+            <ul id="lista-menu-principal" class="nav nav-pills">
+                <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Menu 1</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Menu 2</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Menu 3</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Menu 4</a></li>
+            </ul>
+        </header>
+
+        <div
+        id="carouselExampleIndicators"
+        class="carousel slide"
+        data-bs-ride="carousel"
+      >
+        <!-- Indicadores (pequeños botones circulares) -->
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselExampleIndicators"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+        </div>
+  
+        <!-- Slides del carrusel -->
+        <div class="carousel-inner">
+          <!-- Primer slide (activo por defecto) -->
+          <div class="carousel-item active">
+            <img
+              src="assets/img/hero.jpeg"
+              class="d-block w-100"
+              alt="Imagen 1"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Encabezado 1</h5>
+              <p>Descripción breve del primer slide.</p>
+            </div>
+          </div>
+  
+          <!-- Segundo slide -->
+          <div class="carousel-item">
+            <img
+              src="assets/img/mar.jpeg"
+              class="d-block w-100"
+              alt="Imagen 2"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Encabezado 2</h5>
+              <p>Descripción breve del segundo slide.</p>
+            </div>
+          </div>
+  
+          <!-- Tercer slide -->
+          <div class="carousel-item">
+            <img
+              src="assets/img/pescaderia.jpg"
+              class="d-block w-100"
+              alt="Imagen 3"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Encabezado 3</h5>
+              <p>Descripción breve del tercer slide.</p>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Controles (flechas) -->
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
+      </div>
+
+        <hr>
+        <div id="Productos" class="px-4  text-center">
+            <h1 id="indicadoresTitulo" class="display-5 my-3 fw-bold text-body-emphasis">{indicadoresTitulo}</h1>
+            <p class="fs-5 text-body-secondary">Contamos con diversos productos según tú necesidad, productos frescos y
+                de la zona </p>
+            <div id="indicadoresFilaTarjetas" class="row justify-content-center">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card mb-4 rounded-3 shadow-lg">
+                        <div class="card-body">
+                            <h5 class="card-title">Special titSSSle treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
+                            </p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Special titSSSle treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
+                            </p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Special titSSSle treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.
+                            </p>
+                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <hr>
+        <a href="https://wa.me/56964625357" target="_blank" class="whatsapp-button">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
+          </a>
+        <div id="contacto" class="px-4 ">
+            <h1 class="display-5 my-5 fw-bold text-body-emphasis text-center">Contacto</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body" id="infoContacto">
+
+                            <h5 class="card-title">Title</h5>
+                            <p class="card-text">contenido</p>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Formulario de Contacto</h5>
+                            <div class="card-text mb-2">
+                                <form action="" method="post">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="floatingInput1" placeholder="">
+                                        <label for="floatingInput1">Nombre y Apellido</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="floatingSelect1"
+                                            aria-label="Floating label select example">
+                                            <option selected>Seleccione una opción</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                        <label for="floatingSelect">Seleccione tipo de producto </label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <textarea class="form-control" placeholder="Leave a comment here"
+                                            id="floatingTextarea1" style="height: 100px"></textarea>
+                                        <label for="floatingTextarea1">Mensaje</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheck1">
+                                        <label class="form-check-label" for="flexCheckChecked">
+                                            Simular Correcto / incorrecto
+                                        </label>
+                                    </div>
+                                    <button type="button" onclick="validarFormularioContacto(this)"
+                                        class="btn btn-primary w-100">Enviar Mensaje</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <hr>
+        <div id ="aboutUs" class="px-4  text-center">
+            <h1 id="quienesTitulo" class="display-5 my-5 fw-bold text-body-emphasis">{quienesTitulo}</h1>
+            <h2 id="quienesSubTitulo" class="display-8 my-5 fw-bold text-body-emphasis">{quienesSubTitulo}</h1>
+                <p id="quienesParrafo" class="my-5 text-body-emphasis">{quienesParrafo}</p>
+                <div id="quienesFilaTarjetas" class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">titulo1</h5>
+                                <p class="card-text">parrafo1.
+                                </p>
+                                <a href="#" class="btn btn-primary">boton1</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">titulo2</h5>
+                                <p class="card-text">parrafo2</p>
+                                <a href="#" class="btn btn-primary">boton2</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
+            <div id="footerCol1" class="col mb-3">
+                <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+                    <img class="soloLogo" src="assets/img/logo-light.png">
+                </a>
+                <p>parrafo que acompaña el logo</p>
+                <p class="text-body-secondary">© 2024</p>
+            </div>
+
+            <div class="col mb-3">
+                <h5>Nuestras Secciones</h5>
+                <ul id="footerListaSecciones" class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+                </ul>
+            </div>
+
+            <div class="col mb-3">
+                <h5>Ubicación</h5>
+                <img src="https://cloudfront-us-east-1.images.arcpublishing.com/copesa/IDDJYHU2MBDELHNCXGZ4AC42GY.jpg"
+                    width="100%">
+            </div>
+
+            <div class="col mb-3">
+                <h5>Contacto</h5>
+                <ul id="footerListaContacto" class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+                </ul>
+            </div>
+
+            <div class="col mb-3">
+                <h5>Redes Sociales</h5>
+                <ul id="footerListaRRSS" class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+                </ul>
+            </div>
+            <button id="success">Success</button>
+        </footer>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+
+    <script>
+
+        // $(document).on('click', '#success', function (e) {
+        //     swal(
+        //         'Success',
+        //         'You clicked the <b style="color:green;">Success</b> button!',
+        //         'success'
+        //     )
+        // });
+
+        //Evaluacion 2
+        // const valoresHero = {
+        //     'titulo': 'Su socio para soluciones digitales',
+        //     'parrafo': 'Proporcionamos el diseño de TI más responsivo y funcional para empresas y negocios de todo el mundo.',
+        //     'boton': {
+        //         'link': '#contacto',
+        //         'texto': 'Contáctanos'
+        //     }
+        // };
+
+        const listaServicios = [
+            {
+                "id": 1,
+                "titulo": {
+                    "esp": "ConsultoríaAA digital",
+                    "eng": "Digital consulting"
+                },
+                "descripcion": {
+                    "esp": "Identificamos las fallas y conectamos los puntos entre tu negocio y tu estrategia digital. Nuestro equipo experto cuenta con años de experiencia en la definición de estrategias y hojas de ruta en función de tus objetivos específicos.",
+                    "eng": "We identify failures and connect the dots between your business and your digital strategy. Our expert team has years of experience defining strategies and roadmaps based on your specific objectives."
+                },
+                "activo": true
+            },
+            {
+                "id": 2,
+                "titulo": {
+                    "esp": "Soluciones multiexperiencia",
+                    "eng": "Multi-experience solutions"
+                },
+                "descripcion": {
+                    "esp": "Deleitamos a las personas usuarias con experiencias interconectadas a través de aplicaciones web, móviles, interfaces conversacionales, digital twin, IoT y AR. Su arquitectura puede adaptarse y evolucionar para adaptarse a los cambios de tu organización.",
+                    "eng": "We delight users with interconnected experiences through web applications, mobile applications, conversational interfaces, digital twin, IoT and AR. Its architecture can adapt and evolve to adapt to changes in your organization."
+                },
+                "activo": true
+            },
+            {
+                "id": 3,
+                "titulo": {
+                    "esp": "Evolución de ecosistemas",
+                    "eng": "Ecosystem evolution"
+                },
+                "descripcion": {
+                    "esp": "Ayudamos a las empresas a evolucionar y ejecutar sus aplicaciones de forma eficiente, desplegando equipos especializados en la modernización y el mantenimiento de ecosistemas técnicos. Creando soluciones robustas en tecnologías de vanguardia.",
+                    "eng": "We help companies evolve and run their applications efficiently, deploying teams specialized in the modernization and maintenance of technical ecosystems. Creating robust solutions in cutting-edge technologies."
+                },
+                "activo": true
+            },
+            {
+                "id": 4,
+                "titulo": {
+                    "esp": "Soluciones Low-Code",
+                    "eng": "Low-Code Solutions"
+                },
+                "descripcion": {
+                    "esp": "Traemos el poder de las soluciones low-code y no-code para ayudar a nuestros clientes a acelerar su salida al mercado y añadir valor. Aumentamos la productividad y la calidad, reduciendo los requisitos de cualificación de los desarrolladores.",
+                    "eng": "We bring the power of low-code and no-code solutions to help our clients accelerate time to market and add value. We increase productivity and quality, reducing developer qualification requirements."
+                },
+                "activo": true
+            }
+        ];
+
+        const listaNosotros = [
+            {
+                "titulo": {
+                    "esp": "Servicios de soporte, gestión y diseño de TI altamente personalizados.",
+                    "eng": "Highly Tailored IT Design, Management & Support Services."
+                },
+                "descripcion": {
+                    "esp": "Acelere la innovación con equipos tecnológicos de clase mundial. Lo conectaremos con un equipo remoto completo de increíbles talentos independientes para todas sus necesidades de desarrollo de software.",
+                    "eng": "Accelerate innovation with world-class tech teams We’ll match you to an entire remote team of incredible freelance talent for all your software development needs."
+                }
+            },
+            {
+                "titulo": {
+                    "esp": "Misión",
+                    "eng": "Mission"
+                },
+                "descripcion": {
+                    "esp": "Nuestra misión es ofrecer soluciones digitales innovadoras y de alta calidad que impulsen el éxito de nuestros clientes, ayudándolos a alcanzar sus objetivos empresariales a través de la tecnología y la creatividad.",
+                    "eng": "Our mission is to deliver high-quality, innovative digital solutions that drive our clients' success, helping them achieve their business goals through technology and creativity."
+                }
+            },
+            {
+                "titulo": {
+                    "esp": "Visión",
+                    "eng": "Vision"
+                },
+                "descripcion": {
+                    "esp": "Nos visualizamos como líderes en el campo de la consultoría y desarrollo de software, reconocidos por nuestra excelencia en el servicio al cliente, nuestra capacidad para adaptarnos a las necesidades cambiantes del mercado y nuestra contribución al crecimiento y la transformación digital de las empresas.",
+                    "eng": "We see ourselves as leaders in the field of software consulting and development, recognized for our excellence in customer service, our ability to adapt to changing market needs and our contribution to the growth and digital transformation of companies."
+                }
+            }
+        ];
+
+
+        //estas constantes, seran futuros endpoints
+
+        const listaMenu = [
+            {
+                link: '#inicio',
+                texto: 'Inicio'
+            },
+            {
+                link: '#Productos',
+                texto: 'Productos'
+            },
+            {
+                link: '#contacto',
+                texto: 'Contáctenos'
+            },
+            {
+                link: '#aboutUs',
+                texto: 'Nosotros'
+            },
+        ];
+
+        const listaIndicadores = [
+            {
+                "id": "1",
+                "codigo": "UF",
+                "nombre": "Unidad de Fomento",
+                "unidad_medida_id": "1",
+                "valor": "37968.98",
+                "activo": true
+            },
+            {
+                "id": "2",
+                "codigo": "IVP",
+                "nombre": "Indice de Valor Promedio",
+                "unidad_medida_id": "1",
+                "valor": "39443.16",
+                "activo": true
+            },
+            {
+                "id": "3",
+                "codigo": "dolar",
+                "nombre": "Dolar Observado",
+                "unidad_medida_id": "1",
+                "valor": "945.87",
+                "activo": true
+            },
+            {
+                "id": "4",
+                "codigo": "IPSS",
+                "nombre": "Unidad de IPSS",
+                "unidad_medida_id": "1",
+                "valor": "1234.00",
+                "activo": false
+            },
+            {
+                "id": "5",
+                "codigo": "CIISA",
+                "nombre": "Unidad de CIISA",
+                "unidad_medida_id": "1",
+                "valor": "4321.00",
+                "activo": false
+            }
+        ];
+
+        const listaContacto = [
+            {
+                "tipo": "Dirección",
+                "valor": "Av. Providencia 1234, Oficina 601 Providencia, Santiago Chile",
+                "activo": true
+            },
+            {
+                "tipo": "Teléfono",
+                "valor": "+56 2 1234 5678",
+                "activo": true
+            },
+            {
+                "tipo": "Email",
+                "valor": "info@coningenio.cl",
+                "activo": true
+            }
+        ];
+
+        const listaRRSS = [
+            {
+                "rrss": "facebook",
+                "icono": "fa fa-facebook",
+                "link": "#",
+                "activo": true
+            },
+            {
+                "rrss": "instagram",
+                "icono": "fa fa-instagram",
+                "link": "#",
+                "activo": true
+            }
+        ];
+        //DOM: Document Object Model
+        seteoWeb();
+
+        // getConAPI('endpoint', 'metodo','authorization', 'seccion');
+        getConAPI('http://localhost/EV3/Back/api/v1/productos-servicios/', 'GET', 'ipss', 'productos');
+
+        function seteoWeb() {
+            //set menu principal
+            const menuPrincipal = document.getElementById('lista-menu-principal');
+            menuPrincipal.innerHTML = '';
+            let contadorMPitems = 0;
+            listaMenu.forEach(e => {
+                const item = document.createElement('li');
+                item.classList.add('nav-item');
+                if (contadorMPitems == 0) {
+                    item.innerHTML = `<a href="${e.link}" class="nav-link active" aria-current="page">${e.texto}</a>`;
+                } else {
+                    item.innerHTML = `<a href="${e.link}" class="nav-link">${e.texto}</a>`;
+                }
+                menuPrincipal.appendChild(item);
+                contadorMPitems++;
+            });
+
+            //set info contacto
+            const infoContacto = document.getElementById('infoContacto');
+            infoContacto.innerHTML = '';
+            listaContacto.forEach(c => {
+                const encabezado = document.createElement('h5');
+                encabezado.classList.add('card-title');
+                encabezado.innerText = c.tipo;
+                infoContacto.appendChild(encabezado);
+                const contenido = document.createElement('p');
+                contenido.classList.add('card-text');
+                contenido.innerText = c.valor;
+                infoContacto.appendChild(contenido);
+            });
+
+            //set nosotros
+            const quienesTitulo = document.getElementById('quienesTitulo');
+            quienesTitulo.innerText = 'Nosotros';
+            const quienesSubTitulo = document.getElementById('quienesSubTitulo');
+            quienesSubTitulo.innerText = listaNosotros[0].titulo.esp;
+            const quienesParrafo = document.getElementById('quienesParrafo');
+            quienesParrafo.innerText = listaNosotros[0].descripcion.esp;
+            const quienesFilaTarjetas = document.getElementById('quienesFilaTarjetas');
+            quienesFilaTarjetas.innerHTML = '';
+
+            let indiceNosotros = 0;
+            listaNosotros.forEach(n => {
+                if (indiceNosotros != 0) {
+                    quienesFilaTarjetas.innerHTML += `
+                        <div class="col-lg-6 col-md-6">
+                            <div class="card">
+                                <h5 class="card-header">${n.titulo.esp}</h5>
+                                <div class="card-body">
+                                    <p class="card-text">${n.descripcion.esp}</p>
+                                </div>
+                            </div>
+                        </div>
+                        `;
+                }
+                indiceNosotros++;
+            });
+
+            //set footer columna 1<p>${valoresHero.parrafo}</p>
+            const footerCol1 = document.getElementById('footerCol1');
+            footerCol1.innerHTML = '';
+            footerCol1.innerHTML = `
+                <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+                    <img class="soloLogo" src="assets/img/logo-light.png">
+                </a>
+                 
+                <p class="text-body-secondary">© 2024</p>
+            `;
+
+            //set nuestras secciones en footer: footerListaSecciones (UL)
+            const footerListaSecciones = document.getElementById('footerListaSecciones');//UL
+            footerListaSecciones.innerHTML = '';
+            listaMenu.forEach(m => {
+                //<li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+                const li = document.createElement('li');
+                li.classList.add('nav-item');
+                li.classList.add('mb-2');
+                li.innerHTML = `<a href="${m.link}" class="nav-link p-0 text-body-secondary">${m.texto}</a>`;
+                footerListaSecciones.appendChild(li);
+            });
+            //set redes sociales en footer: footerListaRRSS (UL)
+            const footerListaRRSS = document.getElementById('footerListaRRSS');
+            footerListaRRSS.innerHTML = '';
+            listaRRSS.forEach(rrss => {
+                if (rrss.activo == true) {
+                    //<li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+                    const li = document.createElement('li');
+                    li.classList.add('nav-item');
+                    li.classList.add('mb-2');
+                    li.innerHTML = `<a href="${rrss.link}" target="_blank" class="nav-link p-0 text-body-secondary"><i class="${rrss.icono}"></i> ${rrss.rrss}</a>`;
+                    footerListaRRSS.appendChild(li);
+                }
+            })
+            //set contacto en footer: footerListaContacto (UL)
+            const footerListaContacto = document.getElementById('footerListaContacto');
+            footerListaContacto.innerHTML = '';
+            listaContacto.forEach(c => {
+                const li = document.createElement('li');
+                li.classList.add('nav-item');
+                li.classList.add('mb-2');
+                li.innerHTML = `<a href="#" class="nav-link p-0 text-body-secondary">${c.valor}</a>`;
+                footerListaContacto.appendChild(li);
+            });
+
+            //set formulario de contacto
+            // const floatingSelect1 = document.getElementById('floatingSelect1');
+            // floatingSelect1.innerHTML = '<option value="-1" selected>Seleccione una opción</option>';
+            // listaServicios.forEach(s => {
+            //     if (s.activo == true) {
+            //         floatingSelect1.innerHTML += `<option value="${s.id}">${s.titulo.esp}</option>`;
+            //     }
+            // });
+
+            // Llamar a la API para obtener los productos
+            $.ajax({
+                url: 'http://localhost/EV3/Back/api/v1/productos-servicios/',  // Tu endpoint de la API
+                type: 'GET',
+                headers: {
+                            'Authorization': `Bearer ipss`
+                        },
+                success: function(data) {
+                    // Obtener el select donde mostrar las categorías
+                    const floatingSelect1 = document.getElementById('floatingSelect1');
+                    
+                    // Establecer la opción predeterminada
+                    floatingSelect1.innerHTML = '<option value="-1" selected>Seleccione una opción</option>';
+
+                    // Extraer las categorías únicas
+                    let categorias = [];
+                    data.data.forEach(producto => {
+                        if (producto.activo) {  // Solo considerar productos activos
+                            // Si la categoría no está ya en el arreglo, agregarla
+                            if (!categorias.includes(producto.categoria_nombre)) {
+                                categorias.push(producto.categoria_nombre);
+                            }
+                        }
+                    });
+
+                    // Agregar las categorías al select
+                    categorias.forEach(categoria => {
+                        floatingSelect1.innerHTML += `<option value="${categoria}">${categoria}</option>`;
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.log(`Error: ${xhr.status} - ${xhr.statusText}`);
+                }
+            });
+            //seteo de indicadores
+            const indicadoresTitulo = document.getElementById('indicadoresTitulo');
+            indicadoresTitulo.innerText = 'Productos';
+        }
+
+        function validarFormularioContacto(_btn) {
+
+            let contadorErrores = 0;
+
+            const formContactNombre = document.getElementById('floatingInput1');
+            if ((formContactNombre.value).length == 0) {
+                contadorErrores++;
+                formContactNombre.classList.add('is-invalid');
+            } else {
+                formContactNombre.classList.remove('is-invalid');
+                formContactNombre.classList.add('is-valid');
+            }
+
+            const formContactServicio = document.getElementById('floatingSelect1');
+            if (formContactServicio.value == -1) {
+                contadorErrores++;
+                formContactServicio.classList.add('is-invalid');
+            } else {
+                formContactServicio.classList.remove('is-invalid');
+                formContactServicio.classList.add('is-valid');
+            }
+
+            const formContactMensaje = document.getElementById('floatingTextarea1');
+            if ((formContactMensaje.value).length == 0) {
+                contadorErrores++;
+                formContactMensaje.classList.add('is-invalid');
+            } else {
+                formContactMensaje.classList.remove('is-invalid');
+                formContactMensaje.classList.add('is-valid');
+            }
+
+            const formContactTestCheck = document.getElementById('flexCheck1');
+
+            //formContactTestCheck.checked // para saber si es true o false.
+
+            if (contadorErrores == 0) {
+                //con el boton que llama a la funcion
+                _btn.classList.add('disabled');
+                _btn.innerText = 'Validando...';
+                if (formContactTestCheck.checked == true) {
+                    // alert('Mensaje enviado :)');
+                    swal(
+                        '¡Excelente!',
+                        'Su mensaje ha sido <b style="color:green;">enviado</b>!',
+                        'success'
+                    );
+
+                    _btn.classList.remove('disabled');
+                    _btn.innerText = 'Enviar Mensaje';
+                    //dejamos todo por defecto
+                    formContactNombre.value = '';
+                    formContactNombre.classList.remove('is-valid');
+                    formContactServicio.selectedIndex = 0;
+                    formContactServicio.classList.remove('is-valid');
+                    formContactMensaje.value = '';
+                    formContactMensaje.classList.remove('is-valid');
+                    formContactTestCheck.checked = false;
+                } else {
+                    // alert('El mensaje no pudo ser enviado :(');
+                    _btn.classList.remove('disabled');
+                    _btn.innerText = 'Volver a enviar el mensaje';
+                    swal(
+                        '¡Error!',
+                        'Su mensaje <b style="color: red">no</b>ha sido enviado!<br><br><b>Puede volver a intentarlo</b>',
+                        'error'
+                    );
+                }
+            }
+        }
+
+        function getConAPI(_endpoint, _metodo, _authorization, _section) {
+            switch (_section) {
+                case 'productos':
+                    $.ajax({
+                        url: _endpoint,
+                        type: _metodo, // metodo GET, POST, PUT, PATCH, DELETE
+                        headers: {
+                            'Authorization': `Bearer ${_authorization}`
+                        },
+                        success: function (data) {
+                            const filasHTML = document.getElementById('indicadoresFilaTarjetas');
+                            filasHTML.innerHTML = '';
+
+                            // Crear un objeto para agrupar los productos por categoria
+                            let categorias = {};
+
+                            // Agrupar los productos por categoria_id
+                            data.data.forEach(i => {
+                                if (i.activo) {
+                                    if (!categorias[i.categoria_id]) {
+                                        categorias[i.categoria_id] = {
+                                            nombre: i.categoria_nombre,  // Nombre de la categoría
+                                            productos: []               // Lista de productos
+                                        };
+                                    }
+                                    // Agregar el producto a la lista correspondiente
+                                    categorias[i.categoria_id].productos.push(i);
+                                }
+                            });
+
+                            // Ahora generamos las tarjetas para cada categoría
+                            for (const categoriaId in categorias) {
+                                const categoria = categorias[categoriaId];
+
+                                // Crear tarjeta para cada categoría
+                                filasHTML.innerHTML += `
+
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="card mb-4 rounded-3 shadow-lg">
+                                <h5 class="card-header">${categoria.nombre}</h5>
+                                <div class="card-body">
+                                    <ul class="list-group">
+                                        ${categoria.productos.map(producto => `
+                                            <li class="list-group-item">${producto.nombre}</li>
+                                        `).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    `;
+                            }
+
+                            console.log('data obtenida');
+                            console.log(data.data);
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(`Error: ${xhr.status} - ${xhr.statusText}`);
+                            console.log("hola");
+                        }
+                    });
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function validarFormularioIndicador(_btn) {
+            let errores = 0;
+            // console.log('validando el formulario de nuevo indicador');
+            const codigo = document.getElementById('fi1');
+            const nombre = document.getElementById('fi2');
+            const unidadMedida = document.getElementById('fs1');
+            const valor = document.getElementById('fi3');
+
+            if (codigo.value.length == 0) {
+                errores++;
+                codigo.classList.add('is-invalid');
+            } else {
+                codigo.classList.remove('is-invalid');
+                codigo.classList.add('is-valid');
+            }
+
+            if (nombre.value.length == 0) {
+                errores++;
+                nombre.classList.add('is-invalid');
+            } else {
+                nombre.classList.remove('is-invalid');
+                nombre.classList.add('is-valid');
+            }
+
+            if (valor.value.length == 0) {
+                errores++;
+                valor.classList.add('is-invalid');
+            } else {
+                valor.classList.remove('is-invalid');
+                valor.classList.add('is-valid');
+            }
+
+            if (unidadMedida.value == -1) {
+                errores++;
+                unidadMedida.classList.add('is-invalid');
+            } else {
+                unidadMedida.classList.remove('is-invalid');
+                unidadMedida.classList.add('is-valid');
+            }
+
+            if (errores == 0) {
+                _btn.classList.add('disabled');
+                _btn.innerText = 'Ingresando valores...';
+
+                //preparar los datos para el POST
+                const postData = {
+                    codigo: codigo.value,
+                    nombre: nombre.value,
+                    unidad_medida_id: unidadMedida.value,
+                    valor: valor.value
+                };
+
+                //llamamos a la funcion que le pega al endpoint
+                // postConAPI('endpoint', 'metodo', 'authorization', data, 'seccion');
+                postConAPI('http://localhost/EV3/Back/api/v1/productos-servicios/', 'POST', 'ipss2024T3s70', postData, 'productos');
+            }
+
+        }
+
+        function postConAPI(_endpoint, _metodo, _authorization, _postData = null, _section) {
+            // console.log('post con api');
+            switch (_section) {
+                case 'productos':
+                    $.ajax({
+                        url: _endpoint,
+                        type: _metodo,
+                        headers: {
+                            'Authorization': `Bearer ${_authorization}`,
+                            'Content-type': 'application/json'
+                        },
+                        data: JSON.stringify(_postData),
+                        success: function (data) {
+                            console.log('Respuesta del servidor: ' + data);
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(`Error al enviar datos: ${xhr.status} - ${xhr.statusText}`);
+                        }
+                    });
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+    </script>
+</body>
+
+</html>
