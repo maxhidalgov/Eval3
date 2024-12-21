@@ -54,7 +54,7 @@ switch ($_method) {
             include_once '../conexion.php';
             include_once 'modeloIndicador.php';
             // Se instancia el modelo
-            $modelo = new Indicador();
+            $modelo = new Productos();
 
             $lista = $modelo->getAll();
 
@@ -103,7 +103,7 @@ switch ($_method) {
             include_once '../conexion.php';
             include_once 'modeloIndicador.php';
             // Se instancia el modelo
-            $modelo = new Indicador();
+            $modelo = new Productos();
 
             $lista = $modelo->getAll();
 
@@ -151,26 +151,26 @@ switch ($_method) {
             // echo 'estamos updateando';
             include_once '../conexion.php';
             include_once 'modeloIndicador.php';
-            $modelo = new Indicador();
+            $modelo = new Productos();
             $body = json_decode(file_get_contents("php://input", true)); // json_decode -> transforma un JSON a un Objeto standar para trabajar
             // echo $_parametroID;
             // var_dump($body->codigo);
             $modelo->setId($_parametroID);
-            $modelo->setCodigo($body->codigo);
             $modelo->setNombre($body->nombre);
-            $modelo->setValor($body->valor);
+            $modelo->setCategoria_id($body->categoria_id);
+            $modelo->setCategoria_nombre($body->categoria_nombre);
             // var_dump($modelo);
             $lista = $modelo->getAll();
-            $registroBD = new Indicador();
+            $registroBD = new Productos();
 
             $existe = 0;
             foreach ($lista as $obj) {
                 // var_dump($obj['id']); // es un objeto estandar, por eso no podemos utilizar el getId()
                 if ($obj['id'] == $_parametroID) {
                     $existe = 1;
-                    $registroBD->setCodigo($obj['codigo']);
                     $registroBD->setNombre($obj['nombre']);
-                    $registroBD->setValor($obj['valor']);
+                    $registroBD->setCategoria_id($obj['categoria_id']);
+                    $registroBD->setCategoria_nombre($obj['categoria_nombre']);
                 }
             }
 
@@ -178,15 +178,15 @@ switch ($_method) {
 
             $cambios = 0;
 
-            if ($registroBD->getCodigo() != $modelo->getCodigo()) {
-                $cambios++;
-            }
-
             if ($registroBD->getNombre() != $modelo->getNombre()) {
                 $cambios++;
             }
 
-            if ($registroBD->getValor() != $modelo->getValor()) {
+            if ($registroBD->getCategoria_id() != $modelo->getCategoria_id()) {
+                $cambios++;
+            }
+
+            if ($registroBD->getCategoria_nombre() != $modelo->getCategoria_nombre()) {
                 $cambios++;
             }
 

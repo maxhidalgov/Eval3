@@ -121,7 +121,7 @@ class Productos
     {
         $con = new Conexion();
         // Query para habilitar
-        $query = "UPDATE indicador SET activo = true WHERE id = " . $_registro->getId();
+        $query = "UPDATE productos SET activo = true WHERE id = " . $_registro->getId();
         // echo $query;
         $rs = mysqli_query($con->getConnection(), $query);
         $con->closeConnection();
@@ -131,11 +131,11 @@ class Productos
         return false;
     }
 
-    public function disable(Indicador $_registro)
+    public function disable(Productos $_registro)
     {
         $con = new Conexion();
         // Query para habilitar
-        $query = "UPDATE indicador SET activo = false WHERE id = " . $_registro->getId();
+        $query = "UPDATE productos SET activo = false WHERE id = " . $_registro->getId();
         // echo $query;
         $rs = mysqli_query($con->getConnection(), $query);
         $con->closeConnection();
@@ -145,11 +145,11 @@ class Productos
         return false;
     }
 
-    public function update(Indicador $_registro)
+    public function update(Productos $_registro)
     {
         $con = new Conexion();
         // Query para habilitar
-        $query = "UPDATE indicador SET codigo = '" . $_registro->getCodigo() . "', nombre = '". $_registro->getNombre()."', valor = ".$_registro->getValor()." WHERE id = " . $_registro->getId();
+        $query = "UPDATE productos SET nombre = '" . $_registro->getNombre() . "', categoria_id = '". $_registro->getCategoria_id()."', categoria_nombre = '".$_registro->getCategoria_nombre()."' WHERE id = " . $_registro->getId();
         // echo $query;
         $rs = mysqli_query($con->getConnection(), $query);
         $con->closeConnection();

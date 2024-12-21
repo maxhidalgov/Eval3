@@ -5,7 +5,7 @@ $_host = $_SERVER['HTTP_HOST'];
 $_uri = $_SERVER['REQUEST_URI'];
 $_partes = explode('/', $_uri);
 
-if($_method=='PATCH' || $_method == 'DELETE'){
+if($_method=='PATCH' || $_method == 'DELETE' || $_method == 'PUT'){
     // echo 'partes: ';
     //parametros
     // print_r($_partes);

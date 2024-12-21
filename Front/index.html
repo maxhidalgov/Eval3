@@ -600,7 +600,7 @@
         seteoWeb();
 
         // getConAPI('endpoint', 'metodo','authorization', 'seccion');
-        getConAPI('http://localhost/EV3/Back/api/v1/productos-servicios/', 'GET', 'ipss', 'productos');
+        getConAPI('http://localhost/Eval3/Back/api/v1/productos-servicios/', 'GET', 'ipss', 'productos');
 
         function seteoWeb() {
             //set menu principal
@@ -717,7 +717,7 @@
 
             // Llamar a la API para obtener los productos
             $.ajax({
-                url: 'http://localhost/EV3/Back/api/v1/productos-servicios/',  // Tu endpoint de la API
+                url: 'http://localhost/Eval3/Back/api/v1/productos-servicios/',  // Tu endpoint de la API
                 type: 'GET',
                 headers: {
                             'Authorization': `Bearer ipss`
