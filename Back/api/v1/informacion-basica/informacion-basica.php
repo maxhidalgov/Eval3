@@ -2,11 +2,14 @@
 
 class InformacionBasica
 {
+    private $id;
     private $logo_url;
     private $nombre_empresa;
     private $descripcion;
     private $palabras_clave;
     private $menu_principal;
+    private $activo;
+
 
     public function __construct() {}
 
@@ -14,6 +17,10 @@ class InformacionBasica
     public function getLogoUrl()
     {
         return $this->logo_url;
+    }
+    public function getId()
+    {
+        return $this->id;
     }
     public function getNombreEmpresa()
     {
@@ -31,77 +38,88 @@ class InformacionBasica
     {
         return $this->menu_principal;
     }
+    public function getActivo()
+    {
+        return $this->activo;
+    }
+    
+
 
     // Mutadores
-    public function setLogoUrl($_url)
+    public function setId($_n)
     {
-        $this->logo_url = $_url;
+        $this->id = $_n;
     }
-    public function setNombreEmpresa($_nombre)
+    public function setLogoUrl($_n)
     {
-        $this->nombre_empresa = $_nombre;
+        $this->logo_url = $_n;
     }
-    public function setDescripcion($_descripcion)
+    public function setNombreEmpresa($_n)
     {
-        $this->descripcion = $_descripcion;
+        $this->nombre_empresa = $_n;
     }
-    public function setPalabrasClave($_palabras)
+    public function setDescripcion($_n)
     {
-        $this->palabras_clave = $_palabras;
+        $this->descripcion = $_n;
     }
-    public function setMenuPrincipal($_menu)
+    public function setPalabrasClave($_n)
     {
-        $this->menu_principal = $_menu;
+        $this->palabras_clave = $_n;
+    }
+    public function setMenuPrincipal($_n)
+    {
+        $this->menu_principal = $_n;
+    }
+    public function setActivo($_n)
+    {
+        $this->activo = $_n;
     }
 
     // Obtener información básica
     public function getAll()
     {
+        $lista = [];
         $con = new Conexion();
-        $query = "SELECT logo_url, nombre_empresa, descripcion, palabras_clave, menu_principal FROM informacion_basica;";
+        $query = "SELECT id, logo_url, nombre_empresa, descripcion, palabras_clave,menu_principal, activo FROM informacion_basica;";
         $rs = mysqli_query($con->getConnection(), $query);
-        $registro = mysqli_fetch_assoc($rs);
+        if ($rs) {
+            while ($registro = mysqli_fetch_assoc($rs)) {
+                $registro['activo'] = $registro['activo'] == 1 ? true : false;
+                array_push($lista, $registro);
+            }
+            mysqli_free_result($rs);
+        }
         $con->closeConnection();
-        
-        return $registro;
+        return $lista;
     }
 
     // Modificar información básica
-    public function update(InformacionBasica $_nuevo)
+    public function update(InformacionBasica $_registro)
     {
         $con = new Conexion();
-        $query = "UPDATE informacion_basica SET 
-                  logo_url = '" . $_nuevo->getLogoUrl() . "', 
-                  nombre_empresa = '" . $_nuevo->getNombreEmpresa() . "', 
-                  descripcion = '" . $_nuevo->getDescripcion() . "', 
-                  palabras_clave = '" . $_nuevo->getPalabrasClave() . "', 
-                  menu_principal = '" . $_nuevo->getMenuPrincipal() . "'
-                  WHERE id = 1"; // Asegurando que solo se actualice una fila, ya que es información global
+        $query = "UPDATE informacion_basica 
+        SET logo_url = '" . $_registro->getLogoUrl() . "',
+            nombre_empresa = '" . $_registro->getNombreEmpresa() . "',
+            descripcion = '" . $_registro->getDescripcion() . "',
+            palabras_clave = '" . $_registro->getPalabrasClave() . "' 
+          WHERE id = " . (int)$_registro->getId();
+
 
         $rs = mysqli_query($con->getConnection(), $query);
         $con->closeConnection();
-        
         if ($rs) {
             return true;
         }
         return false;
     }
-
     // Deshabilitar información básica
-    public function disable()
+
+    public function disable(InformacionBasica $_registro)
     {
         $con = new Conexion();
-        $query = "UPDATE informacion_basica SET 
-                  logo_url = NULL, 
-                  nombre_empresa = NULL, 
-                  descripcion = NULL, 
-                  palabras_clave = NULL, 
-                  menu_principal = NULL
-                  WHERE id = 1"; // Similar al update, para dejar los campos vacíos
-
+        $query = "UPDATE informacion_basica SET activo = false WHERE id = " . $_registro->getId();
         $rs = mysqli_query($con->getConnection(), $query);
         $con->closeConnection();
-        
         if ($rs) {
             return true;
         }
@@ -112,20 +130,15 @@ class InformacionBasica
     public function enable(InformacionBasica $_registro)
     {
         $con = new Conexion();
-        $query = "UPDATE informacion_basica SET 
-                  logo_url = '" . $_registro->getLogoUrl() . "', 
-                  nombre_empresa = '" . $_registro->getNombreEmpresa() . "', 
-                  descripcion = '" . $_registro->getDescripcion() . "', 
-                  palabras_clave = '" . $_registro->getPalabrasClave() . "', 
-                  menu_principal = '" . $_registro->getMenuPrincipal() . "'
-                  WHERE id = 1"; // Reemplazar la información básica
-
+        $query = "UPDATE informacion_basica SET activo = true WHERE id = " . $_registro->getId();
         $rs = mysqli_query($con->getConnection(), $query);
         $con->closeConnection();
-        
         if ($rs) {
             return true;
         }
         return false;
     }
+
+
+   
 }
