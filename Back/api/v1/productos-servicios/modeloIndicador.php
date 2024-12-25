@@ -6,6 +6,7 @@ class Productos
     private $nombre;
     private $categoria_id;
     private $categoria_nombre;
+    private $descripcion;
     private $activo;
 
     public function __construct() {}
@@ -25,6 +26,10 @@ class Productos
     public function getCategoria_nombre()
     {
         return $this->categoria_nombre;
+    }
+    public function getDescripcion()
+    {
+        return $this->descripcion;
     }
     public function getActivo()
     {
@@ -47,6 +52,10 @@ class Productos
     {
         $this->categoria_nombre = $_n;
     }
+    public function setDescripcion($_n)
+    {
+        $this->descripcion = $_n;
+    }
     public function setActivo($_n)
     {
         $this->activo = $_n;
@@ -56,7 +65,7 @@ class Productos
     {
         $lista = [];
         $con = new Conexion();
-        $query = "SELECT id, nombre,categoria_id, categoria_nombre, activo FROM productos;";
+        $query = "SELECT id, nombre,categoria_id, categoria_nombre,descripcion, activo FROM productos;";
         $rs = mysqli_query($con->getConnection(), $query);
         if ($rs) {
             while ($registro = mysqli_fetch_assoc($rs)) {
@@ -101,8 +110,8 @@ class Productos
         $nuevoId = count($this->getAll()) + 1; // Opción para obtener el ID
     
         // Crear la consulta para insertar el producto
-        $queryProducto = "INSERT INTO productos (id, nombre, categoria_id, categoria_nombre) 
-                          VALUES (" . $nuevoId . ", '" . $_nuevo->getNombre() . "', " . $categoriaId . ", '" . $categoriaNombre . "')";
+        $queryProducto = "INSERT INTO productos (id, nombre, categoria_id, categoria_nombre, descripcion) 
+                          VALUES (" . $nuevoId . ", '" . $_nuevo->getNombre() . "', " . $categoriaId . ", '" . $categoriaNombre . "', '" . $_nuevo->getDescripcion() . "')";
         
         // Ejecutar la consulta para insertar el producto
         $rs = mysqli_query($con->getConnection(), $queryProducto);

@@ -36,6 +36,7 @@ switch ($_method) {
             $modelo->setNombre($body->nombre);
             $modelo->setCategoria_id($body->categoria_id);
             $modelo->setCategoria_nombre($body->categoria_nombre);
+            $modelo->setDescripcion($body->descripcion);
             // print_r($modelo);
             //agrega el nuevo valor
             $respuesta = $modelo->add($modelo);
@@ -159,6 +160,8 @@ switch ($_method) {
             $modelo->setNombre($body->nombre);
             $modelo->setCategoria_id($body->categoria_id);
             $modelo->setCategoria_nombre($body->categoria_nombre);
+            $modelo->setDescripcion($body->descripcion);
+
             // var_dump($modelo);
             $lista = $modelo->getAll();
             $registroBD = new Productos();
@@ -171,6 +174,7 @@ switch ($_method) {
                     $registroBD->setNombre($obj['nombre']);
                     $registroBD->setCategoria_id($obj['categoria_id']);
                     $registroBD->setCategoria_nombre($obj['categoria_nombre']);
+                    $registroBD->setDescripcion($obj['descripcion']);
                 }
             }
 
@@ -187,6 +191,9 @@ switch ($_method) {
             }
 
             if ($registroBD->getCategoria_nombre() != $modelo->getCategoria_nombre()) {
+                $cambios++;
+            }
+            if ($registroBD->getDescripcion() != $modelo->getDescripcion()) {
                 $cambios++;
             }
 

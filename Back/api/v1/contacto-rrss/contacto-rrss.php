@@ -3,7 +3,7 @@
 class ContactoRRSS
 {
     private $id;
-    private $nombre;
+    private $direccion;
     private $email;
     private $fono;
     private $red_social;
@@ -15,9 +15,9 @@ class ContactoRRSS
     {
         return $this->id;
     }
-    public function getNombre()
+    public function getDireccion()
     {
-        return $this->nombre;
+        return $this->direccion;
     }
     public function getEmail()
     {
@@ -40,9 +40,9 @@ class ContactoRRSS
     {
         $this->id = $_n;
     }
-    public function setNombre($_n)
+    public function setDireccion($_n)
     {
-        $this->nombre = $_n;
+        $this->direccion = $_n;
     }
     public function setEmail($_n)
     {
@@ -65,7 +65,7 @@ class ContactoRRSS
     {
         $lista = [];
         $con = new Conexion();
-        $query = "SELECT id, nombre, email, fono, red_social, activo FROM contacto;";
+        $query = "SELECT id, direccion, email, fono, red_social, activo FROM contacto;";
         $rs = mysqli_query($con->getConnection(), $query);
         if ($rs) {
             while ($registro = mysqli_fetch_assoc($rs)) {
@@ -82,8 +82,8 @@ class ContactoRRSS
     {
         $con = new Conexion();
     
-        $query = "INSERT INTO contacto (nombre, email, fono, red_social) 
-                  VALUES ('" . $_nuevo->getNombre() . "', '" . $_nuevo->getEmail() . "', '" . $_nuevo->getFono() . "', '" . $_nuevo->getRedSocial() . "')";
+        $query = "INSERT INTO contacto (direccion, email, fono, red_social) 
+                  VALUES ('" . $_nuevo->getDireccion() . "', '" . $_nuevo->getEmail() . "', '" . $_nuevo->getFono() . "', '" . $_nuevo->getRedSocial() . "')";
         
         $rs = mysqli_query($con->getConnection(), $query);
     
@@ -122,7 +122,7 @@ class ContactoRRSS
     public function update(ContactoRRSS $_registro)
     {
         $con = new Conexion();
-        $query = "UPDATE contacto SET nombre = '" . $_registro->getNombre() . "', email = '" . $_registro->getEmail() . "', 
+        $query = "UPDATE contacto SET direccion = '" . $_registro->getDireccion() . "', email = '" . $_registro->getEmail() . "', 
                   fono = '" . $_registro->getFono() . "', red_social = '" . $_registro->getRedSocial() . "' 
                   WHERE id = " . $_registro->getId();
         $rs = mysqli_query($con->getConnection(), $query);

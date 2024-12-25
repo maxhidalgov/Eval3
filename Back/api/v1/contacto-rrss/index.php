@@ -29,7 +29,7 @@ switch ($_method) {
             //se recuperan los datos RAW del body en formato JSON
             $body = json_decode(file_get_contents("php://input", true)); // json_decode -> transforma un JSON a un Objeto estándar para trabajar
             $modelo->setId($body->id);
-            $modelo->setNombre($body->nombre);
+            $modelo->setDireccion($body->direccion);
             $modelo->setEmail($body->email);
             $modelo->setFono($body->fono);
             $modelo->setRedSocial($body->red_social);
@@ -134,7 +134,7 @@ switch ($_method) {
             $body = json_decode(file_get_contents("php://input", true)); // json_decode -> transforma un JSON a un Objeto estándar para trabajar
 
             $modelo->setId($_parametroID);
-            $modelo->setNombre($body->nombre);
+            $modelo->setDireccion($body->direccion);
             $modelo->setEmail($body->email);
             $modelo->setFono($body->fono);
             $modelo->setRedSocial($body->red_social);
@@ -146,7 +146,7 @@ switch ($_method) {
             foreach ($lista as $obj) {
                 if ($obj['id'] == $_parametroID) {
                     $existe = 1;
-                    $registroBD->setNombre($obj['nombre']);
+                    $registroBD->setDireccion($obj['direccion']);
                     $registroBD->setEmail($obj['email']);
                     $registroBD->setFono($obj['fono']);
                     $registroBD->setRedSocial($obj['red_social']);
@@ -155,7 +155,7 @@ switch ($_method) {
 
             $cambios = 0;
 
-            if ($registroBD->getNombre() != $modelo->getNombre()) {
+            if ($registroBD->getDireccion() != $modelo->getDireccion()) {
                 $cambios++;
             }
 

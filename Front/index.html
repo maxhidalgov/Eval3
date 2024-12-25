@@ -222,6 +222,7 @@
       </div>
 
         <hr>
+        <div class="container">
         <div id="Productos" class="px-4  text-center">
             <h1 id="indicadoresTitulo" class="display-5 my-3 fw-bold text-body-emphasis">{indicadoresTitulo}</h1>
             <p class="fs-5 text-body-secondary">Contamos con diversos productos según tú necesidad, productos frescos y
@@ -258,7 +259,7 @@
                     </div>
                 </div>
             </div>
-
+        </div>
         <hr>
         <a href="https://wa.me/56964625357" target="_blank" class="whatsapp-button">
             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
@@ -601,6 +602,7 @@
 
         // getConAPI('endpoint', 'metodo','authorization', 'seccion');
         getConAPI('http://localhost/Eval3/Back/api/v1/productos-servicios/', 'GET', 'ipss', 'productos');
+        getConAPI('http://localhost/Eval3/Back/api/v1/contacto-rrss/', 'GET', 'ipss', 'contacto');
         getQuienesSomos('http://localhost/Eval3/Back/api/v1/quienes-somos/', 'GET', 'ipss', 'quienesSomos');
 
         function seteoWeb() {
@@ -621,18 +623,18 @@
             });
 
             //set info contacto
-            const infoContacto = document.getElementById('infoContacto');
-            infoContacto.innerHTML = '';
-            listaContacto.forEach(c => {
-                const encabezado = document.createElement('h5');
-                encabezado.classList.add('card-title');
-                encabezado.innerText = c.tipo;
-                infoContacto.appendChild(encabezado);
-                const contenido = document.createElement('p');
-                contenido.classList.add('card-text');
-                contenido.innerText = c.valor;
-                infoContacto.appendChild(contenido);
-            });
+            // const infoContacto = document.getElementById('infoContacto');
+            // infoContacto.innerHTML = '';
+            // listaContacto.forEach(c => {
+            //     const encabezado = document.createElement('h5');
+            //     encabezado.classList.add('card-title');
+            //     encabezado.innerText = c.tipo;
+            //     infoContacto.appendChild(encabezado);
+            //     const contenido = document.createElement('p');
+            //     contenido.classList.add('card-text');
+            //     contenido.innerText = c.valor;
+            //     infoContacto.appendChild(contenido);
+            // });
 
             //set nosotros
             const quienesTitulo = document.getElementById('quienesTitulo');
@@ -751,8 +753,8 @@
                 }
             });
             //seteo de indicadores
-            const indicadoresTitulo = document.getElementById('indicadoresTitulo');
-            indicadoresTitulo.innerText = 'Productos';
+           // const indicadoresTitulo = document.getElementById('indicadoresTitulo');
+           // indicadoresTitulo.innerText = 'Productos';
         }
 
         function validarFormularioContacto(_btn) {
@@ -825,69 +827,158 @@
             }
         }
 
+        // function getConAPI(_endpoint, _metodo, _authorization, _section) {
+        //     switch (_section) {
+        //         case 'productos':
+        //             $.ajax({
+        //                 url: _endpoint,
+        //                 type: _metodo, // metodo GET, POST, PUT, PATCH, DELETE
+        //                 headers: {
+        //                     'Authorization': `Bearer ${_authorization}`
+        //                 },
+        //                 success: function (data) {
+        //                     const filasHTML = document.getElementById('indicadoresFilaTarjetas');
+        //                     filasHTML.innerHTML = '';
+
+        //                     // Crear un objeto para agrupar los productos por categoria
+        //                     let categorias = {};
+
+        //                     // Agrupar los productos por categoria_id
+        //                     data.data.forEach(i => {
+        //                         if (i.activo) {
+        //                             if (!categorias[i.categoria_id]) {
+        //                                 categorias[i.categoria_id] = {
+        //                                     nombre: i.categoria_nombre,  // Nombre de la categoría
+        //                                     productos: []               // Lista de productos
+        //                                 };
+        //                             }
+        //                             // Agregar el producto a la lista correspondiente
+        //                             categorias[i.categoria_id].productos.push(i);
+        //                         }
+        //                     });
+
+        //                     // Ahora generamos las tarjetas para cada categoría
+        //                     for (const categoriaId in categorias) {
+        //                         const categoria = categorias[categoriaId];
+
+        //                         // Crear tarjeta para cada categoría
+        //                         filasHTML.innerHTML += `
+
+        //                 <div class="col-lg-3 col-md-6 mb-4">
+        //                     <div class="card mb-4 rounded-3 shadow-lg">
+        //                         <h5 class="card-header">${categoria.nombre}</h5>
+        //                         <div class="card-body">
+        //                             <ul class="list-group">
+        //                                 ${categoria.productos.map(producto => `
+        //                                     <li class="list-group-item">${producto.nombre}</li>
+        //                                 `).join('')}
+        //                             </ul>
+        //                         </div>
+        //                     </div>
+        //                 </div>
+
+        //             `;
+        //                     }
+
+        //                     console.log('data obtenida');
+        //                     console.log(data.data);
+        //                 },
+        //                 error: function (xhr, status, error) {
+        //                     console.log(`Error: ${xhr.status} - ${xhr.statusText}`);
+        //                     console.log("hola");
+        //                 }
+        //             });
+        //             break;
+        //         default:
+        //             break;
+        //     }
+        // }
+
         function getConAPI(_endpoint, _metodo, _authorization, _section) {
+            const tituloSection = document.getElementById('indicadoresTitulo');
             switch (_section) {
                 case 'productos':
+                    indicadoresTitulo.innerText = 'Productos';
                     $.ajax({
                         url: _endpoint,
-                        type: _metodo, // metodo GET, POST, PUT, PATCH, DELETE
+                        type: "GET", // Cambia a POST, PUT o DELETE si es necesario
                         headers: {
-                            'Authorization': `Bearer ${_authorization}`
+                            "Authorization": `Bearer ${_authorization}`
                         },
                         success: function (data) {
-                            const filasHTML = document.getElementById('indicadoresFilaTarjetas');
-                            filasHTML.innerHTML = '';
+                            // Mostrar datos en el elemento <pre>
+                            // $("#output").text(JSON.stringify(data, null, 2));
+                            const indicadoresFilaTarjetas = document.getElementById('indicadoresFilaTarjetas');
+                            // let cantidadColumnas = 12;
+                            // if (data.data.length <= 6) {
+                            //     cantidadColumnas = 12 / data.data.length;
+                            // }
+                            // console.log(data);
+                            indicadoresFilaTarjetas.innerHTML = '';
+                            data.data.forEach(d => {
+                                if (d.activo) {
 
-                            // Crear un objeto para agrupar los productos por categoria
-                            let categorias = {};
-
-                            // Agrupar los productos por categoria_id
-                            data.data.forEach(i => {
-                                if (i.activo) {
-                                    if (!categorias[i.categoria_id]) {
-                                        categorias[i.categoria_id] = {
-                                            nombre: i.categoria_nombre,  // Nombre de la categoría
-                                            productos: []               // Lista de productos
-                                        };
-                                    }
-                                    // Agregar el producto a la lista correspondiente
-                                    categorias[i.categoria_id].productos.push(i);
+                                    indicadoresFilaTarjetas.innerHTML += `
+                                    <div class="col-lg-3 col-md-6 mb-4">
+                                        <div class="card mb-4 rounded-3 shadow-lg">
+                                        <h5 class="card-header">${d.nombre}</h5>
+                                        <div class="card-body">
+                                            <p class="card-text">Categoria: ${d.categoria_nombre}</p>
+                                            <p class="card-text">Descripcion: ${d.descripcion}</p>
+                                        </div>
+                                        </div>
+                                    </div> <!-- falta este cierre -->
+                                    `;
                                 }
                             });
-
-                            // Ahora generamos las tarjetas para cada categoría
-                            for (const categoriaId in categorias) {
-                                const categoria = categorias[categoriaId];
-
-                                // Crear tarjeta para cada categoría
-                                filasHTML.innerHTML += `
-
-                        <div class="col-lg-3 col-md-6 mb-4">
-                            <div class="card mb-4 rounded-3 shadow-lg">
-                                <h5 class="card-header">${categoria.nombre}</h5>
-                                <div class="card-body">
-                                    <ul class="list-group">
-                                        ${categoria.productos.map(producto => `
-                                            <li class="list-group-item">${producto.nombre}</li>
-                                        `).join('')}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                    `;
-                            }
-
-                            console.log('data obtenida');
-                            console.log(data.data);
                         },
                         error: function (xhr, status, error) {
-                            console.log(`Error: ${xhr.status} - ${xhr.statusText}`);
-                            console.log("hola");
+                            // Manejo de errores
+                            $("#output").text(`Error: ${xhr.status} ${xhr.statusText}`);
                         }
                     });
                     break;
-                default:
+                case 'contacto':
+                $.ajax({
+                        url: _endpoint,
+                        type: "GET", // Cambia a POST, PUT o DELETE si es necesario
+                        headers: {
+                            "Authorization": `Bearer ${_authorization}`
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            
+            console.log('Datos recibidos:', data); // Verificar los datos de la API
+                            const infoContacto = document.getElementById('infoContacto');
+                            infoContacto.innerHTML = '';
+                            console.log(data.data)
+                            console.log(data)
+                            data.data.forEach(i => {
+                                if (i.activo) {
+
+                                    infoContacto.innerHTML += `
+                            <h5 class="card-title">Dirección:</h5>
+                            <p class="card-text">${i.direccion}</p>
+                           <h5 class="card-title">Teléfono:</h5>
+                            <p class="card-text">${i.fono}</p>
+                            <h5 class="card-title">Email:</h5>
+                            <p class="card-text">${i.email}</p>
+                                        <div class="col mb-5">
+                <h5>Ubicación</h5>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3362.5347138106586!2d-71.27979562439171!3d-32.5652609527279!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689b219b6f532df%3A0x851e6885675b23bd!2sJos%C3%A9%20Mar%C3%ADa%20Mercado%20464%2C%202060000%20Zapallar%2C%20Valpara%C3%ADso!5e0!3m2!1ses-419!2scl!4v1734912295417!5m2!1ses-419!2scl" width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+                                    `;
+                                }
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            // Manejo de errores
+                            $("#output").text(`Error: ${xhr.status} ${xhr.statusText}`);
+                        }
+                    });
+                    break;
+                    default:
                     break;
             }
         }
@@ -900,7 +991,7 @@
             'Authorization': `Bearer ${_authorization}`
         },
         success: function (data) {
-            console.log('Datos recibidos:', data); // Verificar los datos de la API
+         //   console.log('Datos recibidos:', data); // Verificar los datos de la API
 
             // Asegúrate de que los datos existan antes de intentar renderizarlos
             const titulo = data.data.titulo || 'Título no disponible';
@@ -934,7 +1025,7 @@
                 </div>
             `;
 
-            console.log('Sección "Quiénes Somos" actualizada correctamente');
+          //  console.log('Sección "Quiénes Somos" actualizada correctamente');
         },
         error: function (xhr, status, error) {
             console.log(`Error: ${xhr.status} - ${xhr.statusText}`);
