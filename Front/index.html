@@ -772,48 +772,56 @@
                             break;
 
                             case 'estiloVisual':
-                                $.ajax({
-                                    url: _endpoint,
-                                    type: "GET",
-                                    headers: {
-                                        "Authorization": `Bearer ${_authorization}`
-                                    },
-                                    success: function (data) {
-                                        // Verifica que data.data exista y tenga al menos 1 elemento
-                                        if (data && data.data && data.data.length > 0) {
-                                            const estilo = data.data[0];
-                                            console.log("Datos de estilo visual:", estilo);
+  $.ajax({
+    url: _endpoint,
+    type: "GET",
+    headers: {
+      "Authorization": `Bearer ${_authorization}`
+    },
+    success: function (data) {
+      // Verifica que data.data exista y sea un array
+      if (data && data.data && data.data.length > 0) {
+        // Recorremos cada registro
+        for (let i = 0; i < data.data.length; i++) {
+          const estilo = data.data[i];
+          
+          // Si está activo, aplicamos su estilo y salimos del bucle
+          if (estilo.activo) {
+            console.log("Datos de estilo visual (activo):", estilo);
 
-                                            // "estilo.nombre" es un string JSON, así que lo parseamos
-                                            let parsedNombre = {};
-                                            try {
-                                                parsedNombre = JSON.parse(estilo.nombre);
-                                            } catch (e) {
-                                                console.error("Error al parsear estilo.nombre:", e);
-                                            }
+            // estilo.nombre es un string JSON, así que lo parseamos
+            let parsedNombre = {};
+            try {
+              parsedNombre = JSON.parse(estilo.nombre);
+              // Ejemplo de contenido: { "primario": "#113a5d", "secundario": "#8fb8e0", "acento": "#E8F1F2" }
+            } catch (e) {
+              console.error("Error al parsear estilo.nombre:", e);
+            }
 
-                                            // Ahora, parsedNombre tiene las propiedades "primario", "secundario", "acento"...
-                                            // Ej. { primario: "#0A6EB4", secundario: "#ffffff", acento: "#E8F1F2" }
+            // Aplicar paleta de colores como variables CSS
+            if (parsedNombre.primario) {
+              document.documentElement.style.setProperty('--color-primario', parsedNombre.primario);
+            }
+            if (parsedNombre.secundario) {
+              document.documentElement.style.setProperty('--color-secundario', parsedNombre.secundario);
+            }
+            if (parsedNombre.acento) {
+              document.documentElement.style.setProperty('--color-acento', parsedNombre.acento);
+            }
 
-                                            if (parsedNombre.primario) {
-                                                document.documentElement.style.setProperty('--color-primario', parsedNombre.primario);
-                                            }
-                                            if (parsedNombre.secundario) {
-                                                document.documentElement.style.setProperty('--color-secundario', parsedNombre.secundario);
-                                            }
-                                            if (parsedNombre.acento) {
-                                                document.documentElement.style.setProperty('--color-acento', parsedNombre.acento);
-                                            }
-                                            
-                                            // Puedes utilizar "color" y "descripcion" también si lo deseas
-                                            // (estilo.color, estilo.descripcion, etc.)
-                                        }
-                                    },
-                                    error: function (xhr, status, error) {
-                                        $("#output").text(`Error: ${xhr.status} ${xhr.statusText}`);
-                                    }
-                                });
-                                break;
+            // Si quieres usar estilo.descripcion o estilo.color, hazlo aquí.
+
+            // IMPORTANTE: salimos del for, ignorando los demás activos
+            break;
+          }
+        }
+      }
+    },
+    error: function (xhr, status, error) {
+      $("#output").text(`Error: ${xhr.status} ${xhr.statusText}`);
+    }
+  });
+  break;
                     default:
                     break;
             }
