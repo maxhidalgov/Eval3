@@ -158,7 +158,7 @@ class Productos
     {
         $con = new Conexion();
         // Query para habilitar
-        $query = "UPDATE productos SET nombre = '" . $_registro->getNombre() . "', categoria_id = '". $_registro->getCategoria_id()."', categoria_nombre = '".$_registro->getCategoria_nombre()."' WHERE id = " . $_registro->getId();
+        $query = "UPDATE productos SET nombre = '" . $_registro->getNombre() . "', categoria_id = '". $_registro->getCategoria_id()."', categoria_nombre = '".$_registro->getCategoria_nombre()."', descripcion = '".$_registro->getDescripcion()."' WHERE id = " . $_registro->getId();
         // echo $query;
         $rs = mysqli_query($con->getConnection(), $query);
         $con->closeConnection();

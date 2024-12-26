@@ -19,7 +19,7 @@ class Conexion
         $this->port = 3306; //puerto por default de mysql
         $this->db = 'clinicat1_ipss_backend_t3_s70';
         $this->username = 'clinicat1_ipss_backend_t3_s70';
-        $this->password = '1pss_b4ck3nd';
+        $this->password = '';
 
         /*
         SQL: Crear la bd y la tabla
