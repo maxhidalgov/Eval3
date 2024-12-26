@@ -101,7 +101,8 @@ class InformacionBasica
         SET logo_url = '" . $_registro->getLogoUrl() . "',
             nombre_empresa = '" . $_registro->getNombreEmpresa() . "',
             descripcion = '" . $_registro->getDescripcion() . "',
-            palabras_clave = '" . $_registro->getPalabrasClave() . "' 
+            palabras_clave = '" . $_registro->getPalabrasClave() . "',
+            menu_principal = '" . $_registro->getMenuPrincipal() . "' 
           WHERE id = " . (int)$_registro->getId();
 
 

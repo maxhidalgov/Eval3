@@ -117,10 +117,7 @@
 <body>
     <div class="container">
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
-            <a href="/"
-                class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-                <img src="assets/img/Logo.png" style="width: 150px;">
-            </a>
+            <img id="logoEmpresa" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none" alt="logo" width="180px"/>
             <ul id="lista-menu-principal" class="nav nav-pills">
                 <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Menu 1</a></li>
                 <li class="nav-item"><a href="#" class="nav-link">Menu 2</a></li>
@@ -168,8 +165,8 @@
               alt="Imagen 1"
             />
             <div class="carousel-caption d-none d-md-block">
-              <h5>Encabezado 1</h5>
-              <p>Descripción breve del primer slide.</p>
+              <h1 id="nombreEmpresa">Pescadería Mar de Catapilco</h1>
+              <p id="descripcionEmpresa">Descripción breve del primer slide.</p>
             </div>
           </div>
   
@@ -227,7 +224,7 @@
             <h1 id="indicadoresTitulo" class="display-5 my-3 fw-bold text-body-emphasis">{indicadoresTitulo}</h1>
             <p class="fs-5 text-body-secondary">Contamos con diversos productos según tú necesidad, productos frescos y
                 de la zona </p>
-            <div id="indicadoresFilaTarjetas" class="row justify-content-center">
+            <div id="indicadoresFilaTarjetas" class="row row-cols-1 row-cols-md-3 mb-3 text-center">
                 <div class="col-lg-4 col-md-6">
                     <div class="card mb-4 rounded-3 shadow-lg">
                         <div class="card-body">
@@ -604,24 +601,25 @@
         getConAPI('http://localhost/Eval3/Back/api/v1/productos-servicios/', 'GET', 'ipss', 'productos');
         getConAPI('http://localhost/Eval3/Back/api/v1/contacto-rrss/', 'GET', 'ipss', 'contacto');
         getConAPI('http://localhost/Eval3/Back/api/v1/quienes-somos/', 'GET', 'ipss', 'quienesSomos');
+        getConAPI('http://localhost/Eval3/Back/api/v1/informacion-basica/', 'GET', 'ipss', 'informacionBasica');
         //getQuienesSomos('http://localhost/Eval3/Back/api/v1/quienes-somos/', 'GET', 'ipss', 'quienesSomos');
 
         function seteoWeb() {
             //set menu principal
-            const menuPrincipal = document.getElementById('lista-menu-principal');
-            menuPrincipal.innerHTML = '';
-            let contadorMPitems = 0;
-            listaMenu.forEach(e => {
-                const item = document.createElement('li');
-                item.classList.add('nav-item');
-                if (contadorMPitems == 0) {
-                    item.innerHTML = `<a href="${e.link}" class="nav-link active" aria-current="page">${e.texto}</a>`;
-                } else {
-                    item.innerHTML = `<a href="${e.link}" class="nav-link">${e.texto}</a>`;
-                }
-                menuPrincipal.appendChild(item);
-                contadorMPitems++;
-            });
+            // const menuPrincipal = document.getElementById('lista-menu-principal');
+            // menuPrincipal.innerHTML = '';
+            // let contadorMPitems = 0;
+            // listaMenu.forEach(e => {
+            //     const item = document.createElement('li');
+            //     item.classList.add('nav-item');
+            //     if (contadorMPitems == 0) {
+            //         item.innerHTML = `<a href="${e.link}" class="nav-link active" aria-current="page">${e.texto}</a>`;
+            //     } else {
+            //         item.innerHTML = `<a href="${e.link}" class="nav-link">${e.texto}</a>`;
+            //     }
+            //     menuPrincipal.appendChild(item);
+            //     contadorMPitems++;
+            // });
 
             //set info contacto
             // const infoContacto = document.getElementById('infoContacto');
@@ -907,6 +905,7 @@
                             "Authorization": `Bearer ${_authorization}`
                         },
                         success: function (data) {
+                            
                             // Mostrar datos en el elemento <pre>
                             // $("#output").text(JSON.stringify(data, null, 2));
                             const indicadoresFilaTarjetas = document.getElementById('indicadoresFilaTarjetas');
@@ -1031,6 +1030,81 @@
                         }
                     });
                     break;
+                    case 'informacionBasica':
+    $.ajax({
+        url: _endpoint,
+        type: "GET",
+        headers: {
+            "Authorization": `Bearer ${_authorization}`
+        },
+        success: function(data) {
+            // Para ver qué datos llegan
+            console.log("Datos de información básica:", data);
+            
+            // Revisa que 'data.data' exista y tenga al menos un elemento
+            if (data && data.data && data.data.length > 0) {
+                // Obtenemos el primer elemento
+                const info = data.data[0];
+                
+                // 1. Asigna la URL del logo al <img id="logoEmpresa">
+                if (info.logo_url) {
+                    document.getElementById('logoEmpresa').src = info.logo_url;
+                }
+
+                // 2. Si tienes un <h1 id="nombreEmpresa"> o similar, asigna el nombre
+                if (info.nombre_empresa) {
+                    document.getElementById('nombreEmpresa').innerText = info.nombre_empresa;
+                }
+
+                // 3. Igual con la descripción, si tienes un <p id="descripcionEmpresa">
+                if (info.descripcion) {
+                    document.getElementById('descripcionEmpresa').innerText = info.descripcion;
+                }
+
+                // 4. Palabras clave (puedes mostrarlas o asignarlas a meta[name="keywords"]).
+                if (info.palabras_clave) {
+                    // Ejemplo: en consola o en un <p id="keywordsEmpresa">
+                    console.log("Palabras clave:", info.palabras_clave);
+                }
+
+                // 5. Menú principal, si viene como JSON en un string y necesitas parsearlo
+                if (info.menu_principal) {
+                    // Parsear si viene como string
+                    let menu = {};
+                    try {
+                        menu = JSON.parse(info.menu_principal);
+                    } catch (e) {
+                        console.error("Error al parsear menu_principal:", e);
+                    }
+                    
+                    // Ejemplo de crear links en <ul id="lista-menu-principal">
+                    const listaMenu = document.getElementById('lista-menu-principal');
+                    listaMenu.innerHTML = '';
+                    
+                    // El objeto "menu" podría tener pares clave/valor como:
+                    // { "inicio": "Inicio", "productos": "Productos" }
+                    // Iteramos para crear <li> con <a>
+                    let contadorMPitems = 0;
+                    
+                    Object.entries(menu).forEach(([enlace, texto], index) => {
+                        let activeClass = index === 0 ? 'nav-link active aria-current="page"' : 'nav-link';
+
+                        listaMenu.innerHTML += `
+                            <li class="nav-item">
+                                <a href="/${enlace}" class="${activeClass}">${texto}</a>
+                            </li>
+                        `;
+                    });
+                }
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error:", xhr.status, xhr.statusText);
+        }
+    });
+    break;
+
+
                     default:
                     break;
             }
