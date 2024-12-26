@@ -517,7 +517,7 @@
                 texto: 'Contáctenos'
             },
             {
-                link: '#aboutUs',
+                link: '#quienesSomos',
                 texto: 'Nosotros'
             },
         ];
@@ -603,7 +603,8 @@
         // getConAPI('endpoint', 'metodo','authorization', 'seccion');
         getConAPI('http://localhost/Eval3/Back/api/v1/productos-servicios/', 'GET', 'ipss', 'productos');
         getConAPI('http://localhost/Eval3/Back/api/v1/contacto-rrss/', 'GET', 'ipss', 'contacto');
-        getQuienesSomos('http://localhost/Eval3/Back/api/v1/quienes-somos/', 'GET', 'ipss', 'quienesSomos');
+        getConAPI('http://localhost/Eval3/Back/api/v1/quienes-somos/', 'GET', 'ipss', 'quienesSomos');
+        //getQuienesSomos('http://localhost/Eval3/Back/api/v1/quienes-somos/', 'GET', 'ipss', 'quienesSomos');
 
         function seteoWeb() {
             //set menu principal
@@ -637,14 +638,14 @@
             // });
 
             //set nosotros
-            const quienesTitulo = document.getElementById('quienesTitulo');
-            quienesTitulo.innerText = 'Nosotros';
-            const quienesSubTitulo = document.getElementById('quienesSubTitulo');
-            quienesSubTitulo.innerText = listaNosotros[0].titulo.esp;
-            const quienesParrafo = document.getElementById('quienesParrafo');
-            quienesParrafo.innerText = listaNosotros[0].descripcion.esp;
-            const quienesFilaTarjetas = document.getElementById('quienesFilaTarjetas');
-            quienesFilaTarjetas.innerHTML = '';
+            // const quienesTitulo = document.getElementById('quienesTitulo');
+            // quienesTitulo.innerText = 'Nosotros';
+            // const quienesSubTitulo = document.getElementById('quienesSubTitulo');
+            // quienesSubTitulo.innerText = listaNosotros[0].titulo.esp;
+            // const quienesParrafo = document.getElementById('quienesParrafo');
+            // quienesParrafo.innerText = listaNosotros[0].descripcion.esp;
+            // const quienesFilaTarjetas = document.getElementById('quienesFilaTarjetas');
+            // quienesFilaTarjetas.innerHTML = '';
 
             let indiceNosotros = 0;
             listaNosotros.forEach(n => {
@@ -939,20 +940,15 @@
                     });
                     break;
                 case 'contacto':
-                $.ajax({
+                    $.ajax({
                         url: _endpoint,
                         type: "GET", // Cambia a POST, PUT o DELETE si es necesario
                         headers: {
                             "Authorization": `Bearer ${_authorization}`
                         },
                         success: function (data) {
-                            console.log(data);
-                            
-            console.log('Datos recibidos:', data); // Verificar los datos de la API
                             const infoContacto = document.getElementById('infoContacto');
                             infoContacto.innerHTML = '';
-                            console.log(data.data)
-                            console.log(data)
                             data.data.forEach(i => {
                                 if (i.activo) {
 
@@ -964,13 +960,70 @@
                             <h5 class="card-title">Email:</h5>
                             <p class="card-text">${i.email}</p>
                                         <div class="col mb-5">
-                <h5>Ubicación</h5>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3362.5347138106586!2d-71.27979562439171!3d-32.5652609527279!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689b219b6f532df%3A0x851e6885675b23bd!2sJos%C3%A9%20Mar%C3%ADa%20Mercado%20464%2C%202060000%20Zapallar%2C%20Valpara%C3%ADso!5e0!3m2!1ses-419!2scl!4v1734912295417!5m2!1ses-419!2scl" width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
+                            <h5>Ubicación</h5>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3362.5347138106586!2d-71.27979562439171!3d-32.5652609527279!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689b219b6f532df%3A0x851e6885675b23bd!2sJos%C3%A9%20Mar%C3%ADa%20Mercado%20464%2C%202060000%20Zapallar%2C%20Valpara%C3%ADso!5e0!3m2!1ses-419!2scl!4v1734912295417!5m2!1ses-419!2scl" width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
 
                                     `;
                                 }
                             });
+                        },
+                        error: function (xhr, status, error) {
+                            // Manejo de errores
+                            $("#output").text(`Error: ${xhr.status} ${xhr.statusText}`);
+                        }
+                    });
+                    break;
+                case 'quienesSomos':
+                         $.ajax({
+                        url: _endpoint,
+                        type: "GET", // Cambia a POST, PUT o DELETE si es necesario
+                        headers: {
+                            "Authorization": `Bearer ${_authorization}`
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            console.log('Datos recibidos:', data); // Verificar los datos de la API
+                            quienesTitulo.innerHTML = '';
+                            quienesSubTitulo.innerHTML = '';
+                            quienesParrafo.innerHTML = '';
+                            quienesTitulo.innerHTML = '';
+
+                         // Asegúrate de que los datos existan antes de intentar renderizarlos
+                         const titulo = data.data.titulo || 'Título no disponible';
+                         const descripcion = data.data.descripcion || 'Descripción no disponible';
+                         const mision = data.data.mision || 'Misión no disponible';
+                         const vision = data.data.vision || 'Visión no disponible';
+
+                         // Reemplazar los valores dinámicamente en el contenedor
+                         document.getElementById('quienesTitulo').innerText = titulo;
+                         document.getElementById('quienesSubTitulo').innerText = '';
+                         document.getElementById('quienesParrafo').innerText = descripcion;
+                       
+                            console.log(data.data)
+                            console.log(data)
+
+                        // Actualizar las tarjetas de Misión y Visión
+                         const filaTarjetas = document.getElementById('quienesFilaTarjetas');
+                         filaTarjetas.innerHTML = `
+                             <div class="col-lg-6 col-md-6">
+                                 <div class="card mb-3">
+                                     <div class="card-body">
+                                         <h5 class="card-title text-center">Misión</h5>
+                                         <p class="card-text">${mision}</p>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="col-lg-6 col-md-6">
+                                 <div class="card mb-3">
+                                     <div class="card-body">
+                                         <h5 class="card-title text-center">Visión</h5>
+                                         <p class="card-text">${vision}</p>
+                                     </div>
+                                 </div>
+                             </div>
+                         `;
+
                         },
                         error: function (xhr, status, error) {
                             // Manejo de errores
@@ -983,55 +1036,55 @@
             }
         }
 
-        function getQuienesSomos(_endpoint, _metodo, _authorization) {
-    $.ajax({
-        url: _endpoint,
-        type: _metodo, // método GET, POST, PUT, PATCH, DELETE
-        headers: {
-            'Authorization': `Bearer ${_authorization}`
-        },
-        success: function (data) {
-         //   console.log('Datos recibidos:', data); // Verificar los datos de la API
+//         function getQuienesSomos(_endpoint, _metodo, _authorization) {
+//     $.ajax({
+//         url: _endpoint,
+//         type: _metodo, // método GET, POST, PUT, PATCH, DELETE
+//         headers: {
+//             'Authorization': `Bearer ${_authorization}`
+//         },
+//         success: function (data) {
+//          //   console.log('Datos recibidos:', data); // Verificar los datos de la API
 
-            // Asegúrate de que los datos existan antes de intentar renderizarlos
-            const titulo = data.data.titulo || 'Título no disponible';
-            const descripcion = data.data.descripcion || 'Descripción no disponible';
-            const mision = data.data.mision || 'Misión no disponible';
-            const vision = data.data.vision || 'Visión no disponible';
+//             // Asegúrate de que los datos existan antes de intentar renderizarlos
+//             const titulo = data.data.titulo || 'Título no disponible';
+//             const descripcion = data.data.descripcion || 'Descripción no disponible';
+//             const mision = data.data.mision || 'Misión no disponible';
+//             const vision = data.data.vision || 'Visión no disponible';
 
-            // Reemplazar los valores dinámicamente en el contenedor
-            document.getElementById('quienesTitulo').innerText = titulo;
-            document.getElementById('quienesSubTitulo').innerText = descripcion;
-            document.getElementById('quienesParrafo').innerText = '';
+//             // Reemplazar los valores dinámicamente en el contenedor
+//             document.getElementById('quienesTitulo').innerText = titulo;
+//             document.getElementById('quienesSubTitulo').innerText = descripcion;
+//             document.getElementById('quienesParrafo').innerText = '';
 
-            // Actualizar las tarjetas de Misión y Visión
-            const filaTarjetas = document.getElementById('quienesFilaTarjetas');
-            filaTarjetas.innerHTML = `
-                <div class="col-lg-6 col-md-6">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Misión</h5>
-                            <p class="card-text">${mision}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="card mb-3">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">Visión</h5>
-                            <p class="card-text">${vision}</p>
-                        </div>
-                    </div>
-                </div>
-            `;
+//             // Actualizar las tarjetas de Misión y Visión
+//             const filaTarjetas = document.getElementById('quienesFilaTarjetas');
+//             filaTarjetas.innerHTML = `
+//                 <div class="col-lg-6 col-md-6">
+//                     <div class="card mb-3">
+//                         <div class="card-body">
+//                             <h5 class="card-title text-center">Misión</h5>
+//                             <p class="card-text">${mision}</p>
+//                         </div>
+//                     </div>
+//                 </div>
+//                 <div class="col-lg-6 col-md-6">
+//                     <div class="card mb-3">
+//                         <div class="card-body">
+//                             <h5 class="card-title text-center">Visión</h5>
+//                             <p class="card-text">${vision}</p>
+//                         </div>
+//                     </div>
+//                 </div>
+//             `;
 
-          //  console.log('Sección "Quiénes Somos" actualizada correctamente');
-        },
-        error: function (xhr, status, error) {
-            console.log(`Error: ${xhr.status} - ${xhr.statusText}`);
-        }
-    });
-}
+//           //  console.log('Sección "Quiénes Somos" actualizada correctamente');
+//         },
+//         error: function (xhr, status, error) {
+//             console.log(`Error: ${xhr.status} - ${xhr.statusText}`);
+//         }
+//     });
+// }
 
         function validarFormularioIndicador(_btn) {
             let errores = 0;
